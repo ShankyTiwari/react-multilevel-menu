@@ -1,17 +1,56 @@
-.rmlm-item {
-    .rmlm-data {
-        width: 100%;
-        text-transform: capitalize;
+.rmlm-item-container {
+    cursor: pointer;
+    .rmlm-item-wrapper {
         display: flex;
         justify-content: space-between;
-        height: 48px;
-        border-top-color: rgba(0,0,0,.12);
-        margin: 0;
-        border-top-width: 1px;
-        border-top-style: solid;
-        line-height: 48px;
         padding-left: 20px;
         padding-right: 20px;
+
+        .rmlm-list-data {
+            width: 100%;
+            text-transform: capitalize;
+            height: 48px;
+            margin: 0;
+            line-height: 48px;
+            display: flex;
+            justify-content: flex-start;
+    
+            .rmlm-icon-container {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                margin-right: 16px;
+                .rmlm-list-icon {
+                    line-height: 48px;
+                    flex-shrink: 0;
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    object-fit: cover;
+                }
+
+                .rmlm-icon-fa  {
+                    font-size: 20px;
+                    text-align: center;
+                }
+    
+                .rmlm-list-label {
+                    line-height: 48px;
+                    font-weight: 400;
+                }
+            }
+        }
+
+        .rmlm-icon-arrow-container {
+            display: flex;
+            align-items: center;
+        }
+
+    }
+    .rmlm-dividers {
+        border-top-color: rgba(0,0,0,.12);
+        border-top-width: 1px;
+        border-top-style: solid;
     }
     .rmlm-submenu {
         margin-left: 16px;

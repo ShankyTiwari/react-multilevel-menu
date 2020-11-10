@@ -18,4 +18,16 @@ export class MultilevelMenuService {
       }
     });
   }
+  recursiveCheckId(node: MultilevelNodes, nodeId: string): boolean {
+    if (node.id === nodeId) {
+      return true;
+    }
+    if (node.items !== undefined) {
+      return node.items.some((nestedNode: MultilevelNodes) => {
+        return this.recursiveCheckId(nestedNode, nodeId);
+      });
+    } else {
+      return false;
+    }
+  }
 }

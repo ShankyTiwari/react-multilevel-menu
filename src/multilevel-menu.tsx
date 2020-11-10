@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import CONSTANTS from './constants';
 import { MultilevelNodes, Configuration, BackgroundStyle }  from './interfaces';
@@ -61,13 +61,10 @@ const detectInvalidConfig = (configuration: Configuration): { nodeConfig: Config
   };
 }
 
-const checkValidData = (list: MultilevelNodes[]) => {
-  if (list.length === 0) {
-    console.warn(CONSTANTS.ERROR_MESSAGE);
-  } else {
-    list = list.filter(n => !n.hidden);
-    multilevelMenuService.addRandomId(list);
-  }
+const doDataPreprocesing = (list: MultilevelNodes[]) => {
+  list = list.filter(n => !n.hidden);
+  multilevelMenuService.addRandomId(list);
+  return list;
 }
 
 export const MultilevelMenu = ({list, configuration }: {list: MultilevelNodes[], configuration: Configuration}) => {
@@ -75,17 +72,14 @@ export const MultilevelMenu = ({list, configuration }: {list: MultilevelNodes[],
     isInvalidConfig: false,
   });
 
-  const currentNode: MultilevelNodes = list[0]; 
+  const [currentNode, setCurrentNode] = useState({});
+
+  list = doDataPreprocesing(list)
 
   useEffect( () => {
     const nodeConfig = detectInvalidConfig(configuration);
     console.log(nodeConfig);
   }, [configuration]);
-  
-  useEffect( () => {
-    checkValidData(list);
-    console.log(list);
-  }, [list]);
 
   const getClassName = (): string => {
     if (menuRefContainer.current.isInvalidConfig) {
@@ -112,9 +106,10 @@ export const MultilevelMenu = ({list, configuration }: {list: MultilevelNodes[],
   }
 
   const selectedListItem = (event: any) => {
-    console.log(event)
+    console.log(event);
+    setCurrentNode(event);
   }
-
+  console.log(list)
   return (
     <div className={`${getClassName()}`} style={getGlobalStyle()}>
       {list.map((node: MultilevelNodes, index: number) => (
