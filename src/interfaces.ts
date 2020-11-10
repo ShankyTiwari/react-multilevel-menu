@@ -4,12 +4,9 @@ export interface MultilevelNodes {
   faIcon?: string;
   imageIcon?: string;
   activeFaIcon?: string;
-  activeIcon?: string;
   activeImageIcon?: string;
-  activeSvgIcon?: string;
   hidden?: boolean;
   link?: string;
-  externalRedirect?: boolean;
   hrefTargetType?: string;
   data?: any;
   items?: MultilevelNodes[];
@@ -24,7 +21,6 @@ export interface Configuration {
   listBackgroundColor?: string;
   fontColor?: string;
   selectedListFontColor?: string;
-  interfaceWithRoute?: boolean;
   collapseOnSelect?: boolean;
   highlightOnSelect?: boolean;
   useDividers?: boolean;
@@ -37,11 +33,6 @@ export interface ListStyle {
   background: string;
   color: string;
 }
-
-export enum ExpandCollapseStatusEnum {
-  expand = 'expand',
-  collapse = 'collapse',
-}
 export interface ListItemProps {
   node: MultilevelNodes;
   nodeConfiguration: Configuration;
@@ -49,4 +40,10 @@ export interface ListItemProps {
   submenuLevel: number;
   selectedItem: Function;
   selectedNode: MultilevelNodes;
+}
+export interface MultiLevelMenuProps {
+  list: MultilevelNodes[];
+  configuration: Configuration;
+  selectedListItem: Function;
+  selectedLabel: Function;
 }

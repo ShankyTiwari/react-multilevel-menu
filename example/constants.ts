@@ -18,7 +18,6 @@ export default [
             {
                 label: 'Item 1.2',
                 faIcon: 'fab fa-accessible-icon',
-                disabled: true,
                 items: [
                     {
                         label: 'Item 1.2.1',
@@ -84,4 +83,5 @@ export const configurations = {
     interfaceWithRoute: true,
     rtlLayout: false,
     classname: "my-menu",
+    selectedListFontColor: "red"
 }

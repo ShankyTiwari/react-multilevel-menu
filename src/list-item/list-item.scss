@@ -1,9 +1,9 @@
 .rmlm-item-container {
-    cursor: pointer;
     .rmlm-item-wrapper {
         display: flex;
         justify-content: space-between;
         padding-left: 20px;
+        cursor: pointer;
         padding-right: 20px;
 
         .rmlm-list-data {
@@ -55,4 +55,10 @@
     .rmlm-submenu {
         margin-left: 16px;
     }
+}
+
+.disabled-rmlm-item {
+    opacity: 0.5;
+    text-decoration: none;
+    pointer-events: none;
 }

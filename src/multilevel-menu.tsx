@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import CONSTANTS from './constants';
-import { MultilevelNodes, Configuration, BackgroundStyle }  from './interfaces';
+import { MultilevelNodes, Configuration, BackgroundStyle, MultiLevelMenuProps }  from './interfaces';
 import { MultilevelMenuService } from './multilevel-menu.service';
 import { ListItem } from './list-item/list-item';
 
@@ -67,7 +67,7 @@ const doDataPreprocesing = (list: MultilevelNodes[]) => {
   return list;
 }
 
-export const MultilevelMenu = ({list, configuration }: {list: MultilevelNodes[], configuration: Configuration}) => {
+export const MultilevelMenu = ( {list, configuration, selectedListItem, selectedLabel }: MultiLevelMenuProps) => {
   const menuRefContainer = useRef({
     isInvalidConfig: false,
   });
@@ -105,11 +105,20 @@ export const MultilevelMenu = ({list, configuration }: {list: MultilevelNodes[],
     return {}
   }
 
-  const selectedListItem = (event: any) => {
-    console.log(event);
-    setCurrentNode(event);
+  const selectedChildItems = (event: any) => {
+    if(event.onSelected && typeof event.onSelected === 'function'){
+      event.onSelected();
+      setCurrentNode(event);
+    }
+    if (event.items === undefined) {
+      setCurrentNode(event);
+      selectedListItem(event);
+    }
+    if(selectedLabel && event.items !== undefined && (!event.onSelected || typeof event.onSelected !== 'function')) {
+      selectedLabel(event);
+    }
   }
-  console.log(list)
+
   return (
     <div className={`${getClassName()}`} style={getGlobalStyle()}>
       {list.map((node: MultilevelNodes, index: number) => (
@@ -119,7 +128,7 @@ export const MultilevelMenu = ({list, configuration }: {list: MultilevelNodes[],
           level={0}
           submenuLevel={index}
           selectedNode={currentNode}
-          selectedItem={selectedListItem}
+          selectedItem={selectedChildItems}
           node={node}
         />
       ))}

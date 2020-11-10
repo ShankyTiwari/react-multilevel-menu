@@ -8,6 +8,9 @@ import './index.scss';
 import { MultilevelMenu } from '../.';
 
 const App = () => {
+  const selectedItem = (event) => {
+    console.log(event);
+  }
 
   return (
     <div className="app__page-container">
@@ -18,7 +21,12 @@ const App = () => {
         </div>
         <div className="app__demo-container">
           <div className="app__demo-wrapper">
-            <MultilevelMenu list={list} configuration={configurations}/>
+            <MultilevelMenu 
+            list={list} 
+            configuration={configurations} 
+            selectedListItem={selectedItem} 
+            selectedLabel={selectedItem}
+          />
           </div>
         </div>
       </div>

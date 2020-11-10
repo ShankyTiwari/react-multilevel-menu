@@ -14,6 +14,11 @@ export const ListItem  = ( { node, nodeConfiguration, level, submenuLevel, selec
   
   const makeMeVisible = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, subItem: MultilevelNodes) => {
     event.stopPropagation();
+
+    if (node.disabled) {
+      return;
+    }
+
     subItem.expanded = !subItem.expanded;   
     setExpandStatus(subItem.expanded);
     selectedItem(node);
@@ -106,7 +111,7 @@ export const ListItem  = ( { node, nodeConfiguration, level, submenuLevel, selec
     if (nodeConfiguration.listBackgroundColor) {
       styles.background = nodeConfiguration.listBackgroundColor as string;
     }
-    if (isSelected()) {
+    if (isSelected() && selectedNode.items === undefined ) {
       nodeConfiguration.selectedListFontColor ? 
         styles.color = nodeConfiguration.selectedListFontColor as string : styles.color = CONSTANTS.DEFAULT_SELECTED_FONT_COLOR;
     } else if (nodeConfiguration.fontColor) {
@@ -134,7 +139,7 @@ export const ListItem  = ( { node, nodeConfiguration, level, submenuLevel, selec
 
   const getListDataJSX = () => {
     return (
-      <div className={CONSTANTS.DEFAULT_LIST_WRAPPER_CLASS_NAME} style={getListStyle()} onClick={(event) => { makeMeVisible(event, node) }}>
+      <div className={CONSTANTS.DEFAULT_LIST_WRAPPER_CLASS_NAME} title={node.label} style={getListStyle()} onClick={(event) => { makeMeVisible(event, node) }}>
         <div className={CONSTANTS.DEFAULT_LIST_DATA_CLASS_NAME}>
           <div className={CONSTANTS.DEFAULT_LIST_ICON_CONTAINER_CLASS_NAME}>
             {getIconJsx()}
