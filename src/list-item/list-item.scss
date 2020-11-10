@@ -1,0 +1,19 @@
+.rmlm-item {
+    .rmlm-data {
+        width: 100%;
+        text-transform: capitalize;
+        display: flex;
+        justify-content: space-between;
+        height: 48px;
+        border-top-color: rgba(0,0,0,.12);
+        margin: 0;
+        border-top-width: 1px;
+        border-top-style: solid;
+        line-height: 48px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .rmlm-submenu {
+        margin-left: 16px;
+    }
+}
