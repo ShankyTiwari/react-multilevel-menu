@@ -1,160 +1,189 @@
-# TSDX React User Guide
+# react-multilevel-menu
 
-Congrats! You just saved yourself hours of work by bootstrapping this project with TSDX. Let’s get you oriented with what’s here and how to use it.
+Multi-Level Menu for React Projects.
 
-> This TSDX setup is meant for developing React component libraries (not apps!) that can be published to NPM. If you’re looking to build a React-based app, you should use `create-react-app`, `razzle`, `nextjs`, `gatsby`, or `react-static`.
+## Why react-multilevel-menu?
 
-> If you’re new to TypeScript and React, checkout [this handy cheatsheet](https://github.com/sw-yx/react-typescript-cheatsheet/)
+The main goal of this package is to deliver a slim and Skinny Multi-Level Menu for React Projects. That can fit into any kind of projects with no muss, no fuss. Within few lines, you will get an animation ready multilevel list that just works.
 
-## Commands
+## Demo
 
-TSDX scaffolds your new library inside `/src`, and also sets up a [Parcel-based](https://parceljs.org) playground for it inside `/example`.
+Check the Multi-Level Menu in action, [click here](http://plugins.codershood.info/#/plugins/ngmm-plugin).
 
-The recommended workflow is to run TSDX in one terminal:
+## Features
+2. [FontAwesome Icons](https://fontawesome.com/v4.7.0/icons/) are supported.
+3. Use images as icons in the list.
 
-```bash
-npm start # or yarn start
+## Installation
+You can use either the npm or yarn command-line tool to install packages. Use whichever is appropriate for your project in the examples below.
+
+#### NPM
+```  
+npm install --save react-multilevel-menu
+```
+        
+#### YARN
+```          
+yarn add --save react-multilevel-menu
+```
+        
+## Usage
+Follow below steps to add multi level list in your project
+
+#### 1. Import NgMaterialMultilevelMenuModule
+
+You need to import the ```NgMaterialMultilevelMenuModule``` in the module of your app where you want to use it.
+
+```tsx
+import { MultilevelMenu } from 'react-multilevel-menu';
+
+import {list, configurations} from './constants'; // Your Menu Array and configuration Object
+
+
+const App = () => {
+  const selectedItem = (event) => {
+    console.log(event);
+  }
+
+  return (
+    <div className="app__page-container">
+        <MultilevelMenu 
+        list={list} 
+        configuration={configurations} 
+        selectedListItem={selectedItem} 
+        selectedLabel={selectedItem}
+      />
+    </div>
+  );
+};
+
+export default App
+```  
+
+#### 2. Structure of array to display the list
+
+Make sure you structure of array should look like array shown below,     
+```typescript
+const list: MultilevelNodes[] = [
+    {
+        label: 'NPM',
+        faIcon: 'fab fa-500px',
+        link: 'https://www.npmjs.com/package/ng-material-multilevel-menu',
+        hrefTargetType: '_blank' // _blank|_self|_parent|_top|framename
+    },
+    {
+        label: 'Item 1 (with Font awesome icon)',
+        imageIcon: '/batman.jpg',
+        activeImageIcon: '/ironman.jpg',
+        items: [
+            {
+                label: 'Item 1.1',
+                faIcon: 'fab fa-accusoft',
+                onSelected: function() {
+                    console.log('Item 1.2.2.1');
+                }
+            },
+            {
+                label: 'Item 1.2',
+                faIcon: 'fab fa-accessible-icon',
+                items: [
+                    {
+                        label: 'Item 1.2.1',
+                        faIcon: 'fas fa-allergies',
+                        onSelected: function() {
+                            console.log('Item 1.2.2.1');
+                        }
+                    },
+                    {
+                        label: 'Item 1.2.2',
+                        faIcon: 'fas fa-ambulance',
+                        items: [
+                            {
+                                label: 'Item 1.2.2.1',
+                                faIcon: 'fas fa-anchor',
+                                onSelected: function() {
+                                    console.log('Item 1.2.2.1');
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        label: 'Item 2',
+        faIcon: 'fas fa-anchor', 
+        items: [
+            {
+                label: 'Item 2.1',
+                faIcon: 'fab fa-accusoft',
+                activeFaIcon: 'fab fa-accusoft',
+                disabled: true,
+            },
+            {
+                label: 'Item 2.2',
+                faIcon: 'fas fa-anchor', 
+                activeFaIcon: 'fab fa-accusoft',
+            }
+        ]
+    },
+    {
+        label: 'Item 3',
+        faIcon: 'fab fa-accusoft',
+        activeFaIcon: 'fas fa-anchor', 
+        onSelected: function() {
+            console.log('Item 3');
+        }
+    },
+    {
+        label: 'Item 4',
+        link: '/item-4',
+        faIcon: 'fab fa-accusoft',
+        hidden: true
+    }
+];
 ```
 
-This builds to `/dist` and runs the project in watch mode so any edits you save inside `src` causes a rebuild to `/dist`.
+## Menu Configuration
 
-Then run the example inside another:
+- Using ```configuration```, You can customise the appearance of the list.
+    * ```paddingAtStart: boolean``` => *[optional]* If you don't want padding at the start of the list item, then you can give ```false```. The default value will be ```true```.
+    * ```highlightOnSelect: boolean``` => *[optional]* If you want to highlight the clicked item in the list, then you can do that by making it ```true```. The default value will be ```false```.
+    * ```useDividers: boolean``` => *[optional]* If you want to the list to have dividers. The default value will be ```true```.
+    * ```classname: string;``` => *[optional]* You can give your own custom class name in order to modify the list appearance. 
+    * ```listBackgroundColor: string;``` => *[optional]* You can apply custom color to the background of the list.
+    * ```fontColor: string;``` => *[optional]* Changes the color of Text and icons inside the list.
+    * ```backgroundColor: string;``` => *[optional]* This will change the background color list container.
+    * ```selectedListFontColor: string;``` => *[optional]* This will change the font color of selected list item.
 
-```bash
-cd example
-npm i # or yarn to install dependencies
-npm start # or yarn start
+Below is example how you can apply different background and Font colors,
+```typescript
+config = {
+    paddingAtStart: true,
+    classname: 'my-custom-class',
+    listBackgroundColor: `rgb(208, 241, 239)`,
+    fontColor: `rgb(8, 54, 71)`,
+    backgroundColor: `rgb(208, 241, 239)`,
+    selectedListFontColor: `red`,
+    highlightOnSelect: true,
+    useDividers: false,
+};
 ```
 
-The default example imports and live reloads whatever is in `/dist`, so if you are seeing an out of date component, make sure TSDX is running in watch mode like we recommend above. **No symlinking required**, we use [Parcel's aliasing](https://parceljs.org/module_resolution.html#aliases).
+## Default classes
+* ```selected-amml-item```: This class will be applied to currently selected link and it's father links.
+* ```active-amml-item```: This class will be applied to currently selected link.
 
-To do a one-off build, use `npm run build` or `yarn build`.
+## Contribution
 
-To run tests, use `npm test` or `yarn test`.
+I welcome you to fork and add more features into it. If you have any bugs or feature request, please create an issue at [github repository](https://github.com/ShankyTiwari/react-multilevel-menu/issues).
 
-## Configuration
 
-Code quality is set up for you with `prettier`, `husky`, and `lint-staged`. Adjust the respective fields in `package.json` accordingly.
+## Thanks
 
-### Jest
+This Project is build using [tsdx](https://tsdx.io/).
 
-Jest tests are set up to run with `npm test` or `yarn test`.
+## License
 
-### Bundle analysis
-
-Calculates the real cost of your library using [size-limit](https://github.com/ai/size-limit) with `npm run size` and visulize it with `npm run analyze`.
-
-#### Setup Files
-
-This is the folder structure we set up for you:
-
-```txt
-/example
-  index.html
-  index.tsx       # test your component here in a demo app
-  package.json
-  tsconfig.json
-/src
-  index.tsx       # EDIT THIS
-/test
-  blah.test.tsx   # EDIT THIS
-.gitignore
-package.json
-README.md         # EDIT THIS
-tsconfig.json
-```
-
-#### React Testing Library
-
-We do not set up `react-testing-library` for you yet, we welcome contributions and documentation on this.
-
-### Rollup
-
-TSDX uses [Rollup](https://rollupjs.org) as a bundler and generates multiple rollup configs for various module formats and build settings. See [Optimizations](#optimizations) for details.
-
-### TypeScript
-
-`tsconfig.json` is set up to interpret `dom` and `esnext` types, as well as `react` for `jsx`. Adjust according to your needs.
-
-## Continuous Integration
-
-### GitHub Actions
-
-Two actions are added by default:
-
-- `main` which installs deps w/ cache, lints, tests, and builds on all pushes against a Node and OS matrix
-- `size` which comments cost comparison of your library on every pull request using [`size-limit`](https://github.com/ai/size-limit)
-
-## Optimizations
-
-Please see the main `tsdx` [optimizations docs](https://github.com/palmerhq/tsdx#optimizations). In particular, know that you can take advantage of development-only optimizations:
-
-```js
-// ./types/index.d.ts
-declare var __DEV__: boolean;
-
-// inside your code...
-if (__DEV__) {
-  console.log('foo');
-}
-```
-
-You can also choose to install and use [invariant](https://github.com/palmerhq/tsdx#invariant) and [warning](https://github.com/palmerhq/tsdx#warning) functions.
-
-## Module Formats
-
-CJS, ESModules, and UMD module formats are supported.
-
-The appropriate paths are configured in `package.json` and `dist/index.js` accordingly. Please report if any issues are found.
-
-## Deploying the Example Playground
-
-The Playground is just a simple [Parcel](https://parceljs.org) app, you can deploy it anywhere you would normally deploy that. Here are some guidelines for **manually** deploying with the Netlify CLI (`npm i -g netlify-cli`):
-
-```bash
-cd example # if not already in the example folder
-npm run build # builds to dist
-netlify deploy # deploy the dist folder
-```
-
-Alternatively, if you already have a git repo connected, you can set up continuous deployment with Netlify:
-
-```bash
-netlify init
-# build command: yarn build && cd example && yarn && yarn build
-# directory to deploy: example/dist
-# pick yes for netlify.toml
-```
-
-## Named Exports
-
-Per Palmer Group guidelines, [always use named exports.](https://github.com/palmerhq/typescript#exports) Code split inside your React app instead of your React library.
-
-## Including Styles
-
-There are many ways to ship styles, including with CSS-in-JS. TSDX has no opinion on this, configure how you like.
-
-For vanilla CSS, you can include it at the root directory and add it to the `files` section in your `package.json`, so that it can be imported separately by your users and run through their bundler's loader.
-
-## Publishing to NPM
-
-We recommend using [np](https://github.com/sindresorhus/np).
-
-## Usage with Lerna
-
-When creating a new package with TSDX within a project set up with Lerna, you might encounter a `Cannot resolve dependency` error when trying to run the `example` project. To fix that you will need to make changes to the `package.json` file _inside the `example` directory_.
-
-The problem is that due to the nature of how dependencies are installed in Lerna projects, the aliases in the example project's `package.json` might not point to the right place, as those dependencies might have been installed in the root of your Lerna project.
-
-Change the `alias` to point to where those packages are actually installed. This depends on the directory structure of your Lerna project, so the actual path might be different from the diff below.
-
-```diff
-   "alias": {
--    "react": "../node_modules/react",
--    "react-dom": "../node_modules/react-dom"
-+    "react": "../../../node_modules/react",
-+    "react-dom": "../../../node_modules/react-dom"
-   },
-```
-
-An alternative to fixing this problem would be to remove aliases altogether and define the dependencies referenced as aliases as dev dependencies instead. [However, that might cause other problems.](https://github.com/palmerhq/tsdx/issues/64)
+MIT
