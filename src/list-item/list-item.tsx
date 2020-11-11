@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 
+import { DownArrow, RightArrow } from './../indicator-arrows';
 import CONSTANTS from './../constants';
 import { ListItemProps, ListStyle, MultilevelNodes }  from './../interfaces';
 import { MultilevelMenuService } from '../multilevel-menu.service';
@@ -11,7 +12,7 @@ const multilevelMenuService = new MultilevelMenuService();
 export const ListItem  = ( { node, nodeConfiguration, level, submenuLevel, selectedItem, selectedNode }: ListItemProps) => {
   let children = null;
   const [expanded, setExpandStatus] = useState(false);
-  
+
   const makeMeVisible = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, subItem: MultilevelNodes) => {
     event.stopPropagation();
 
@@ -67,7 +68,7 @@ export const ListItem  = ( { node, nodeConfiguration, level, submenuLevel, selec
 
   if (node && hasItems(node)) {
     children = (
-      <div className={`${getSubMenuClasses()}`} >
+      <div className={getSubMenuClasses()} >
         {
           node?.items?.map((node: MultilevelNodes, index: number) => (
             <ListItem 
@@ -137,6 +138,7 @@ export const ListItem  = ( { node, nodeConfiguration, level, submenuLevel, selec
     }
   }
 
+
   const getListDataJSX = () => {
     return (
       <div className={CONSTANTS.DEFAULT_LIST_WRAPPER_CLASS_NAME} title={node.label} style={getListStyle()} onClick={(event) => { makeMeVisible(event, node) }}>
@@ -144,13 +146,20 @@ export const ListItem  = ( { node, nodeConfiguration, level, submenuLevel, selec
           <div className={CONSTANTS.DEFAULT_LIST_ICON_CONTAINER_CLASS_NAME}>
             {getIconJsx()}
           </div>
-          <div className={CONSTANTS.DEFAULT_LIST_LABEL_CLASS_NAME}>
-            {node.label}
-          </div>
+          { node.link ? (
+              <a href={node.link} target={node.hrefTargetType? node.hrefTargetType: CONSTANTS.DEFAULT_HREF_TARGET_TYPE} className={CONSTANTS.DEFAULT_LIST_LABEL_CLASS_NAME}>
+              {node.label}
+            </a>
+            ) : (
+              <div className={CONSTANTS.DEFAULT_LIST_LABEL_CLASS_NAME}>
+                {node.label}
+              </div>
+            )
+          }
         </div>
         
         {hasItems(node) && <div className={CONSTANTS.DEFAULT_DIRECTION_ICON_CLASS_NAME}>
-          {expanded ? "⇩" : "⇨"} 
+          {expanded ? <DownArrow /> : <RightArrow /> } 
         </div>}
       </div>
     )
@@ -159,7 +168,7 @@ export const ListItem  = ( { node, nodeConfiguration, level, submenuLevel, selec
   return (
     <div className={`${getListMenuClasses()}`}>
       {getListDataJSX()}
-      <div className={CONSTANTS.DEFAULT_DIVIDER_CLASS_NAME}></div>
+      {nodeConfiguration.useDividers && <div className={CONSTANTS.DEFAULT_DIVIDER_CLASS_NAME}></div>}
       {expanded && children}
     </div>
   );

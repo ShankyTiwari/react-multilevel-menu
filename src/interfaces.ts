@@ -2,8 +2,8 @@ export interface MultilevelNodes {
   id?: string;
   label?: string;
   faIcon?: string;
-  imageIcon?: string;
   activeFaIcon?: string;
+  imageIcon?: string;
   activeImageIcon?: string;
   hidden?: boolean;
   link?: string;
@@ -21,10 +21,8 @@ export interface Configuration {
   listBackgroundColor?: string;
   fontColor?: string;
   selectedListFontColor?: string;
-  collapseOnSelect?: boolean;
   highlightOnSelect?: boolean;
   useDividers?: boolean;
-  rtlLayout?: boolean;
 }
 export interface BackgroundStyle {
   background?: string;
@@ -45,5 +43,5 @@ export interface MultiLevelMenuProps {
   list: MultilevelNodes[];
   configuration: Configuration;
   selectedListItem: Function;
-  selectedLabel: Function;
+  selectedLabel?: Function;
 }

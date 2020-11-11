@@ -2,7 +2,7 @@ import 'react-app-polyfill/ie11';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import list, {configurations} from './constants';
+import {list, configurations} from './constants';
 import './index.scss';
 
 import { MultilevelMenu } from '../.';
@@ -25,7 +25,6 @@ const App = () => {
             list={list} 
             configuration={configurations} 
             selectedListItem={selectedItem} 
-            selectedLabel={selectedItem}
           />
           </div>
         </div>

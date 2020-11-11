@@ -34,11 +34,6 @@ const detectInvalidConfig = (configuration: Configuration): { nodeConfig: Config
       config.selectedListFontColor !== undefined) {
       nodeConfig.selectedListFontColor = config.selectedListFontColor;
     }
-    if (config.collapseOnSelect !== null &&
-      config.collapseOnSelect !== undefined &&
-      typeof config.collapseOnSelect === 'boolean') {
-      nodeConfig.collapseOnSelect = config.collapseOnSelect;
-    }
     if (config.highlightOnSelect !== null &&
       config.highlightOnSelect !== undefined &&
       typeof config.highlightOnSelect === 'boolean') {
@@ -48,11 +43,6 @@ const detectInvalidConfig = (configuration: Configuration): { nodeConfig: Config
       config.useDividers !== undefined &&
       typeof config.useDividers === 'boolean') {
       nodeConfig.useDividers = config.useDividers;
-    }
-    if (config.rtlLayout !== null &&
-      config.rtlLayout !== undefined &&
-      typeof config.rtlLayout === 'boolean') {
-      nodeConfig.rtlLayout = config.rtlLayout;
     }
   }
   return {
@@ -109,12 +99,10 @@ export const MultilevelMenu = ( {list, configuration, selectedListItem, selected
     if(event.onSelected && typeof event.onSelected === 'function'){
       event.onSelected();
       setCurrentNode(event);
-    }
-    if (event.items === undefined) {
+    } else if (event.items === undefined) {
       setCurrentNode(event);
       selectedListItem(event);
-    }
-    if(selectedLabel && event.items !== undefined && (!event.onSelected || typeof event.onSelected !== 'function')) {
+    } else if(selectedLabel && event.items !== undefined && (!event.onSelected || typeof event.onSelected !== 'function')) {
       selectedLabel(event);
     }
   }

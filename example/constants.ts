@@ -1,19 +1,23 @@
-export default [
+import { Configuration, MultilevelNodes } from '../.';
+
+export const list: MultilevelNodes[] = [
     {
         label: 'NPM',
         faIcon: 'fab fa-500px',
         link: 'https://www.npmjs.com/package/ng-material-multilevel-menu',
-        externalRedirect: true,
         hrefTargetType: '_blank' // _blank|_self|_parent|_top|framename
     },
     {
         label: 'Item 1 (with Font awesome icon)',
         imageIcon: '/batman.jpg',
+        activeImageIcon: '/ironman.jpg',
         items: [
             {
                 label: 'Item 1.1',
-                link: '/item-1-1',
-                faIcon: 'fab fa-accusoft'
+                faIcon: 'fab fa-accusoft',
+                onSelected: function() {
+                    console.log('Item 1.2.2.1');
+                }
             },
             {
                 label: 'Item 1.2',
@@ -21,8 +25,10 @@ export default [
                 items: [
                     {
                         label: 'Item 1.2.1',
-                        link: '/item-1-2-1',
-                        faIcon: 'fa-allergies' // Font awesome default prefix is fas
+                        faIcon: 'fas fa-allergies',
+                        onSelected: function() {
+                            console.log('Item 1.2.2.1');
+                        }
                     },
                     {
                         label: 'Item 1.2.2',
@@ -30,7 +36,7 @@ export default [
                         items: [
                             {
                                 label: 'Item 1.2.2.1',
-                                faIcon: 'fas fa-anchor',  // Still you can specify if you want to
+                                faIcon: 'fas fa-anchor',
                                 onSelected: function() {
                                     console.log('Item 1.2.2.1');
                                 }
@@ -45,27 +51,23 @@ export default [
         label: 'Item 2',
         faIcon: 'fas fa-anchor', 
         items: [
-        {
-            label: 'Item 2.1',
-            link: '/item-2-1',
-            faIcon: 'fab fa-accusoft',
-            activeIcon: 'favorite',
-            disabled: true,
-        },
-        {
-            label: 'Item 2.2',
-            link: '/item-2-2',
-            faIcon: 'fas fa-anchor', 
-            activeIcon: 'favorite',
-            navigationExtras: {
-                queryParams: { order: 'popular', filter: 'new' },
+            {
+                label: 'Item 2.1',
+                faIcon: 'fab fa-accusoft',
+                activeFaIcon: 'fab fa-accusoft',
+                disabled: true,
+            },
+            {
+                label: 'Item 2.2',
+                faIcon: 'fas fa-anchor', 
+                activeFaIcon: 'fab fa-accusoft',
             }
-        }
         ]
     },
     {
         label: 'Item 3',
         faIcon: 'fab fa-accusoft',
+        activeFaIcon: 'fas fa-anchor', 
         onSelected: function() {
             console.log('Item 3');
         }
@@ -78,10 +80,12 @@ export default [
     }
 ];
 
-export const configurations = {
+export const configurations: Configuration = {
     paddingAtStart: true,
-    interfaceWithRoute: true,
-    rtlLayout: false,
     classname: "my-menu",
-    selectedListFontColor: "red"
+    // selectedListFontColor: "red",
+    // listBackgroundColor: "#00ffbb",
+    // backgroundColor: "#ff00bb",
+    // fontColor: "#bbff00",
+    useDividers: true
 }

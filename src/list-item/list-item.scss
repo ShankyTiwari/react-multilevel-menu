@@ -33,17 +33,28 @@
                     font-size: 20px;
                     text-align: center;
                 }
+            }
     
-                .rmlm-list-label {
-                    line-height: 48px;
-                    font-weight: 400;
-                }
+            .rmlm-list-label {
+                line-height: 48px;
+                font-weight: 400;
+                text-decoration: none;
+                display: block;
+                width: 100%;
+                color: inherit;
+                background: inherit;
             }
         }
 
         .rmlm-icon-arrow-container {
             display: flex;
             align-items: center;
+            .right-arrow {
+                width: 12px;
+            }
+            .down-arrow {
+                width: 20px;
+            }
         }
 
     }
