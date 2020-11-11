@@ -98,7 +98,7 @@ export const ListItem = ({
       <div className={getSubMenuClasses()}>
         {node?.items?.map((node: MultilevelNodes, index: number) => (
           <ListItem
-            key={node.label}
+            key={node.id}
             nodeConfiguration={nodeConfiguration}
             level={level + 1}
             submenuLevel={index}

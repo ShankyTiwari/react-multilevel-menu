@@ -100,7 +100,7 @@ export const MultilevelMenu = ({
     <div className={`${getClassName()}`} style={getGlobalStyle()}>
       {memorizedList.map((node: MultilevelNodes, index: number) => (
         <ListItem
-          key={node.label}
+          key={node.id}
           nodeConfiguration={configuration}
           level={0}
           submenuLevel={index}

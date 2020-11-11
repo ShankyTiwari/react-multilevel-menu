@@ -87,6 +87,6 @@ export const configurations: Configuration = {
     // listBackgroundColor: "#00ffbb",
     // backgroundColor: "#ff00bb",
     // fontColor: "#bbff00",
-    // highlightOnSelect: true,
+    highlightOnSelect: true,
     useDividers: true
 }
