@@ -32,9 +32,9 @@ export const MultilevelMenu = ({
   })();
 
   useEffect(() => {
-    list = list.filter(n => !n.hidden);
-    multilevelMenuService.addRandomId(list);
-    setMemorizedList(list);
+    const updatedList = list.filter(n => !n.hidden);
+    multilevelMenuService.addRandomId(updatedList);
+    setMemorizedList(updatedList);
   }, []);
 
   const getClassName = (): string => {
