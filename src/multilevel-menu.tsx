@@ -35,7 +35,7 @@ export const MultilevelMenu = ({
     const updatedList = list.filter(n => !n.hidden);
     multilevelMenuService.addRandomId(updatedList);
     setMemorizedList(updatedList);
-  }, []);
+  }, [list]);
 
   const getClassName = (): string => {
     if (isInvalidConfig) {
