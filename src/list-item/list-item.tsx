@@ -35,8 +35,8 @@ export const ListItem = ({
     selectedItem(node);
   };
 
-  const hasItems = (item: MultilevelNodes) => {
-    return Array.isArray(item.items) && item.items.length;
+  const hasItems = (item: MultilevelNodes): boolean => {
+    return Array.isArray(item.items) && item.items.length > 0;
   };
 
   const getPaddingAtStart = (): boolean => {
@@ -52,13 +52,19 @@ export const ListItem = ({
   };
 
   const isSelected = (): boolean => {
-    if (nodeConfiguration.highlightOnSelect) {
-      return selectedNode.id === node.id;
-    }
-    return multilevelMenuService.recursiveCheckId(
+    const isFound = multilevelMenuService.recursiveCheckId(
       node,
       selectedNode.id as string
     );
+    if (nodeConfiguration.highlightOnSelect) {
+      return selectedNode.id === node.id || isFound;
+    }
+    if (isFound) {
+      return (
+        nodeConfiguration.highlightOnSelect || selectedNode.items === undefined
+      );
+    }
+    return false;
   };
 
   const getListIcon = (): string => {
@@ -131,7 +137,7 @@ export const ListItem = ({
     if (nodeConfiguration.listBackgroundColor) {
       styles.background = nodeConfiguration.listBackgroundColor as string;
     }
-    if (isSelected() && selectedNode.items === undefined) {
+    if (isSelected()) {
       nodeConfiguration.selectedListFontColor
         ? (styles.color = nodeConfiguration.selectedListFontColor as string)
         : (styles.color = CONSTANTS.DEFAULT_SELECTED_FONT_COLOR);

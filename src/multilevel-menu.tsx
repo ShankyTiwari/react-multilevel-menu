@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import CONSTANTS from './constants';
 import {
@@ -22,16 +22,20 @@ export const MultilevelMenu = ({
     configuration === null ||
     configuration === undefined ||
     configuration === '';
-  const [currentNode, setCurrentNode] = useState({});
+  const [currentNode, setCurrentNode] = useState<MultilevelNodes>({});
+  const [memorizedList, setMemorizedList] = useState<MultilevelNodes[]>([]);
 
   (() => {
-    if (list && list.length > 0) {
-      list = list.filter(n => !n.hidden);
-      multilevelMenuService.addRandomId(list);
-    } else {
+    if (!list || (Array.isArray(list) && list.length < 1)) {
       isInvalidConfig = true;
     }
   })();
+
+  useEffect(() => {
+    list = list.filter(n => !n.hidden);
+    multilevelMenuService.addRandomId(list);
+    setMemorizedList(list);
+  }, []);
 
   const getClassName = (): string => {
     if (isInvalidConfig) {
@@ -77,6 +81,9 @@ export const MultilevelMenu = ({
     ) {
       selectedLabel(event);
     }
+    if (configuration.highlightOnSelect) {
+      setCurrentNode(event);
+    }
   };
 
   if (isInvalidConfig) {
@@ -91,7 +98,7 @@ export const MultilevelMenu = ({
 
   return (
     <div className={`${getClassName()}`} style={getGlobalStyle()}>
-      {list.map((node: MultilevelNodes, index: number) => (
+      {memorizedList.map((node: MultilevelNodes, index: number) => (
         <ListItem
           key={node.label}
           nodeConfiguration={configuration}

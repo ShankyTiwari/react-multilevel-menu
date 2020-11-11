@@ -25,6 +25,7 @@ const App = () => {
             list={list} 
             configuration={configurations} 
             selectedListItem={selectedItem} 
+            selectedLabel={selectedItem}
           />
           </div>
         </div>
