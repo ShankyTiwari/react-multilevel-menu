@@ -13,12 +13,12 @@ export default {
   DISABLED_ITEM_CLASS_NAME: `disabled-rmlm-item`,
   DEFAULT_DIRECTION_ICON_CLASS_NAME: `rmlm-icon-arrow-container`,
   DEFAULT_DIVIDER_CLASS_NAME: `rmlm-dividers`,
+  DEFAULT_ERROR_CLASS_NAME: `rmlm-error-container`,
 
   DEFAULT_SELECTED_FONT_COLOR: `#1976d2`,
   DEFAULT_LIST_BACKGROUND_COLOR: `transparent`,
   DEFAULT_LIST_FONT_COLOR: `rgba(0,0,0,.87)`,
   DEFAULT_HREF_TARGET_TYPE: '_self',
-  PADDING_AT_START: true,
 
-  ERROR_MESSAGE: `Invalid data for material Multilevel List Component`,
+  ERROR_MESSAGE: `Invalid data for  Multilevel List Component.`,
 };

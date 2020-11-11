@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 
 import CONSTANTS from './constants';
 import {
   MultilevelNodes,
-  Configuration,
   BackgroundStyle,
   MultiLevelMenuProps,
 } from './interfaces';
@@ -13,99 +12,29 @@ import { ListItem } from './list-item/list-item';
 import './multilevel-menu.scss';
 const multilevelMenuService = new MultilevelMenuService();
 
-const detectInvalidConfig = (
-  configuration: Configuration
-): {
-  nodeConfig: Configuration;
-  isInvalidConfig: boolean;
-} => {
-  const nodeConfig: Configuration = {};
-  let isInvalidConfig = true;
-  if (
-    configuration === null ||
-    configuration === undefined ||
-    configuration === ''
-  ) {
-    isInvalidConfig = true;
-  } else {
-    isInvalidConfig = false;
-    const config = configuration;
-    if (
-      config.paddingAtStart !== undefined &&
-      config.paddingAtStart !== null &&
-      typeof config.paddingAtStart === 'boolean'
-    ) {
-      nodeConfig.paddingAtStart = config.paddingAtStart;
-    }
-    if (
-      config.listBackgroundColor !== '' &&
-      config.listBackgroundColor !== null &&
-      config.listBackgroundColor !== undefined
-    ) {
-      nodeConfig.listBackgroundColor = config.listBackgroundColor;
-    }
-    if (
-      config.fontColor !== '' &&
-      config.fontColor !== null &&
-      config.fontColor !== undefined
-    ) {
-      nodeConfig.fontColor = config.fontColor;
-    }
-    if (
-      config.selectedListFontColor !== '' &&
-      config.selectedListFontColor !== null &&
-      config.selectedListFontColor !== undefined
-    ) {
-      nodeConfig.selectedListFontColor = config.selectedListFontColor;
-    }
-    if (
-      config.highlightOnSelect !== null &&
-      config.highlightOnSelect !== undefined &&
-      typeof config.highlightOnSelect === 'boolean'
-    ) {
-      nodeConfig.highlightOnSelect = config.highlightOnSelect;
-    }
-    if (
-      config.useDividers !== null &&
-      config.useDividers !== undefined &&
-      typeof config.useDividers === 'boolean'
-    ) {
-      nodeConfig.useDividers = config.useDividers;
-    }
-  }
-  return {
-    nodeConfig,
-    isInvalidConfig,
-  };
-};
-
-const doDataPreprocesing = (list: MultilevelNodes[]) => {
-  list = list.filter(n => !n.hidden);
-  multilevelMenuService.addRandomId(list);
-  return list;
-};
-
 export const MultilevelMenu = ({
   list,
   configuration,
   selectedListItem,
   selectedLabel,
 }: MultiLevelMenuProps) => {
-  const menuRefContainer = useRef({
-    isInvalidConfig: false,
-  });
-
+  let isInvalidConfig =
+    configuration === null ||
+    configuration === undefined ||
+    configuration === '';
   const [currentNode, setCurrentNode] = useState({});
 
-  list = doDataPreprocesing(list);
-
-  useEffect(() => {
-    const nodeConfig = detectInvalidConfig(configuration);
-    console.log(nodeConfig);
-  }, [configuration]);
+  (() => {
+    if (list && list.length > 0) {
+      list = list.filter(n => !n.hidden);
+      multilevelMenuService.addRandomId(list);
+    } else {
+      isInvalidConfig = true;
+    }
+  })();
 
   const getClassName = (): string => {
-    if (menuRefContainer.current.isInvalidConfig) {
+    if (isInvalidConfig) {
       return CONSTANTS.DEFAULT_CLASS_NAME;
     } else {
       if (
@@ -122,7 +51,7 @@ export const MultilevelMenu = ({
 
   const getGlobalStyle = (): BackgroundStyle => {
     if (
-      !menuRefContainer.current.isInvalidConfig &&
+      !isInvalidConfig &&
       configuration.backgroundColor !== '' &&
       configuration.backgroundColor !== null &&
       configuration.backgroundColor !== undefined
@@ -149,6 +78,16 @@ export const MultilevelMenu = ({
       selectedLabel(event);
     }
   };
+
+  if (isInvalidConfig) {
+    return (
+      <div className={`${getClassName()}`}>
+        <div className={CONSTANTS.DEFAULT_ERROR_CLASS_NAME}>
+          {CONSTANTS.ERROR_MESSAGE}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={`${getClassName()}`} style={getGlobalStyle()}>

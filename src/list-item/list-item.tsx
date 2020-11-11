@@ -164,10 +164,21 @@ export const ListItem = ({
     }
   };
 
+  const getListClassNames = (): string => {
+    let classNames = CONSTANTS.DEFAULT_LIST_WRAPPER_CLASS_NAME;
+    if (isSelected()) {
+      classNames = `${classNames} ${CONSTANTS.SELECTED_LIST_CLASS_NAME}`;
+    }
+    if (isSelected() && selectedNode.id === node.id) {
+      classNames = `${classNames} ${CONSTANTS.ACTIVE_ITEM_CLASS_NAME}`;
+    }
+    return classNames;
+  };
+
   const getListDataJSX = () => {
     return (
       <div
-        className={CONSTANTS.DEFAULT_LIST_WRAPPER_CLASS_NAME}
+        className={getListClassNames()}
         title={node.label}
         style={getListStyle()}
         onClick={event => {
