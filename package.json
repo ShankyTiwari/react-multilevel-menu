@@ -1,8 +1,25 @@
 {
-  "version": "0.1.0",
-  "license": "MIT",
+  "version": "1.0.0",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
+  "homepage": "https://demo.codershood.info/react-multilevel-menu/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShankyTiwari/react-multilevel-menu.git"
+  },
+  "keywords": [
+    "multilevel-list",
+    "react-multilevel-list",
+    "react-multilevel-menu",
+    "multilevel-menu",
+    "multilevel-list",
+    "react-list"
+  ],
+  "author": "Shashank Tiwari <shashank@codershood.info>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ShankyTiwari/react-multilevel-menu/issues"
+  },
   "files": [
     "dist",
     "src"
@@ -34,7 +51,6 @@
     "trailingComma": "es5"
   },
   "name": "react-multilevel-menu",
-  "author": "ShankyTiwari",
   "module": "dist/react-multilevel-menu.esm.js",
   "size-limit": [
     {
