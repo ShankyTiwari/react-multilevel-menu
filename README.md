@@ -8,7 +8,7 @@ The main goal of this package is to deliver a slim and Skinny Multi-Level Menu f
 
 ## Demo
 
-Check the Multi-Level Menu in action, [click here](http://plugins.codershood.info/#/plugins/ngmm-plugin).
+Check the Multi-Level Menu in action, [click here](https://demo.codershood.info/react-multilevel-menu/).
 
 ## Features
 2. [FontAwesome Icons](https://fontawesome.com/v4.7.0/icons/) are supported.
@@ -30,9 +30,7 @@ yarn add --save react-multilevel-menu
 ## Usage
 Follow below steps to add multi level list in your project
 
-#### 1. Import NgMaterialMultilevelMenuModule
-
-You need to import the ```NgMaterialMultilevelMenuModule``` in the module of your app where you want to use it.
+#### 1. Import `MultilevelMenu` fromm `react-multilevel-menu`
 
 ```tsx
 import { MultilevelMenu } from 'react-multilevel-menu';
