@@ -1,3 +1,9 @@
+@mixin center-flex-vertically {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .rmlm-item-container {
     .rmlm-item-wrapper {
         display: flex;
@@ -16,9 +22,7 @@
             justify-content: flex-start;
     
             .rmlm-icon-container {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
+                @include center-flex-vertically;
                 margin-right: 16px;
                 .rmlm-list-icon {
                     line-height: 48px;
@@ -27,6 +31,7 @@
                     height: 40px;
                     border-radius: 50%;
                     object-fit: cover;
+                    @include center-flex-vertically;
                 }
 
                 .rmlm-icon-fa  {
