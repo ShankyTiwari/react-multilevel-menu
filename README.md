@@ -30,7 +30,7 @@ yarn add --save react-multilevel-menu
 ## Usage
 Follow below steps to add multi level list in your project
 
-#### 1. Import `MultilevelMenu` fromm `react-multilevel-menu`
+#### 1. Import `MultilevelMenu` from `react-multilevel-menu`
 
 ```tsx
 import { MultilevelMenu } from 'react-multilevel-menu';
